@@ -2,6 +2,10 @@
 include 'check.php';
 
 $cartItems = $query->getCartItems($_SESSION['id']);
+$total_price = 0;
+foreach ($cartItems as $item) {
+    $total_price += $item['total_price'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,48 +31,110 @@ $cartItems = $query->getCartItems($_SESSION['id']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .product-image {
+            margin-right: 15px;
+        }
+
+        .shoping__cart__price del {
+            color: red;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .shoping__cart__price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #123458;
+        }
+
+        .shoping__cart__item__clo span {
+            font-size: 24px;
+            color: #b2b2b2;
+            cursor: pointer;
+        }
+
+        .shoping__cart__item__clo span:hover {
+            color: #ff6347;
+            cursor: pointer;
+        }
+
+        .quantity input {
+            width: 50px;
+            text-align: center;
+        }
+
+        .cart-input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 10px;
+            border: 0.9px solid #3085d6;
+        }
+
+        /* Updated Styles for Checkout Box */
+        .shoping__checkout {
+            border: 2px solid #001f3f;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            color: #001f3f;
+            margin-top: 20px;
+        }
+
+        .shoping__checkout .primary-btn {
+            background-color: #001f3f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .shoping__checkout .primary-btn:hover {
+            background: linear-gradient(135deg, #00b4d8, #0043b0);
+            transform: translateY(-2px);
+        }
+
+        .shoping__checkout h5 {
+            color: #001f3f;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .shoping__checkout ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .shoping__checkout ul li {
+            color: #001f3f;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .shoping__checkout ul li span {
+            color: darkblue;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .shoping__checkout ul li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            padding-top: 15px;
+        }
+    </style>
 </head>
-
-<style>
-    .product-image {
-        margin-right: 15px;
-    }
-
-    .shoping__cart__price del {
-        color: red;
-        font-size: 14px;
-        margin-right: 5px;
-    }
-
-    .shoping__cart__price {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .shoping__cart__item__clo span {
-        font-size: 24px;
-        color: #b2b2b2;
-        cursor: pointer;
-    }
-
-    .shoping__cart__item__clo span:hover {
-        color: #ff6347;
-        cursor: pointer;
-    }
-
-    .quantity input {
-        width: 50px;
-        text-align: center;
-    }
-
-    .cart-input {
-        width: 50px;
-        padding: 5px;
-        text-align: center;
-        border-radius: 10px;
-        border: 0.5px solid #3085d6;
-    }
-</style>
 
 <body>
 
@@ -85,7 +151,7 @@ $cartItems = $query->getCartItems($_SESSION['id']);
                                     <tr>
                                         <th class="shoping__product">Products</th>
                                         <th>Price</th>
-                                        <th>Quantity</th>
+                                        <th>Number Of Days</th>
                                         <th>Total</th>
                                         <th>Actions</th>
                                     </tr>
@@ -94,24 +160,20 @@ $cartItems = $query->getCartItems($_SESSION['id']);
                                     <?php foreach ($cartItems as $item) { ?>
                                         <tr>
                                             <td class="shoping__cart__item">
-                                                <img src="./src/images/products/<?php echo $query->getProductImages($item['id'])[0] ?>"
-                                                    style="width: 55px;" alt="">
+                                                <img src="./src/images/products/<?php echo $query->getProductImages($item['id'])[0] ?>" style="width: 55px;" alt="">
                                                 <h5><?php echo $item['name']; ?></h5>
                                             </td>
                                             <td class="shoping__cart__price">
-                                                <del>$<?php echo number_format($item['price_old'], 2); ?></del>
-                                                $<?php echo number_format($item['price_current'], 2); ?>
+                                                <del>EGP <?php echo number_format($item['price_old'], 2); ?></del>
+                                                EGP <?php echo number_format($item['price_current'], 2); ?>
                                             </td>
                                             <td class="shoping__cart__quantity">
                                                 <div class="quantity">
-                                                    <input type="number" value="<?php echo $item['number_of_products']; ?>"
-                                                        id="quantity_<?php echo $item['id']; ?>" class="cart-input"
-                                                        data-product-id="<?php echo $item['id']; ?>"
-                                                        onchange="updateQuantity(<?php echo $item['id']; ?>)">
+                                                    <input type="number" value="<?php echo $item['number_of_products']; ?>" id="quantity_<?php echo $item['id']; ?>" class="cart-input" data-product-id="<?php echo $item['id']; ?>" onchange="updateQuantity(<?php echo $item['id']; ?>)">
                                                 </div>
                                             </td>
                                             <td class="shoping__cart__total">
-                                                $<?php echo number_format($item['total_price'], 2); ?>
+                                                EGP <?php echo number_format($item['total_price'], 2); ?>
                                             </td>
                                             <td class="shoping__cart__item__clo">
                                                 <span onclick="removeCartItem(<?php echo $item['id']; ?>)">
@@ -125,21 +187,22 @@ $cartItems = $query->getCartItems($_SESSION['id']);
                         </div>
                     <?php } else { ?>
                         <div style="padding: 10vh 0;">
-                            <p style="text-align: center; font-size:25px">The cart is still empty.</p>
+                            <p style="text-align: center; font-size: 25px">The cart is still empty.</p>
                         </div>
                     <?php } ?>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="shoping__checkout">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 ">
+                    <div class="shoping__checkout ">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$<?php echo number_format($total_price, 2); ?></span></li>
-                            <li>Total <span>$<?php echo number_format($total_price, 2); ?></span></li>
+                            <li>Subtotal <span>EGP <?php echo number_format($total_price, 2); ?></span></li>
+                            <li>Agraly Service (5%) <span>EGP <?php echo number_format($total_price * 0.05, 2); ?></span></li>
+                            <li>Total <span>EGP <?php echo number_format($total_price + ($total_price * 0.05), 2); ?></span></li>
                         </ul>
-                        <a href="checkout.php" class="primary-btn">Proceed to Checkout</a>
+                        <a href="checkout.php" class="primary-btn ">Proceed to Checkout</a>
                     </div>
                 </div>
             </div>
@@ -147,6 +210,7 @@ $cartItems = $query->getCartItems($_SESSION['id']);
     </section>
 
     <?php include './includes/footer.php'; ?>
+    <?php include './includes/nav-buttons.php'; ?>
 
     <script src="./src/js/jquery-3.3.1.min.js"></script>
     <script src="./src/js/bootstrap.min.js"></script>

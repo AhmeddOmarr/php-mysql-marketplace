@@ -10,7 +10,7 @@ $name = $query->select('categories', 'category_name', "where id = '$category_id'
 ?>
 
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@ $name = $query->select('categories', 'category_name', "where id = '$category_id'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="./favicon.ico">
-    <title>iMarket</title>
+    <title>Category - <?php echo htmlspecialchars($name); ?></title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -34,6 +34,89 @@ $name = $query->select('categories', 'category_name', "where id = '$category_id'
     <link rel="stylesheet" href="./src/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="./src/css/style.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Override green colors with navy blue */
+        .primary-btn, .site-btn, .btn-primary {
+            background: #001f3f !important;
+            border-color: #001f3f !important;
+        }
+        .primary-btn:hover, .site-btn:hover, .btn-primary:hover {
+            background: linear-gradient(135deg, #0043b0, #001f3f) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .product__item__pic__hover li a {
+            background-color: #001f3f !important;
+            border-color: #001f3f !important;
+            color: #ffffff !important;
+        }
+        .product__item__pic__hover li a:hover {
+            background: linear-gradient(135deg, #0043b0, #001f3f) !important;
+            color: #ffffff !important;
+        }
+        .product__item__pic__hover li a i {
+            color: #ffffff !important;
+        }
+        .product__item__text span {
+            color: #001f3f !important;
+        }
+        .product__item__price {
+            color: #001f3f !important;
+        }
+        .section-title h2:after {
+            background: #001f3f !important;
+        }
+        .filter__sort select {
+            border-color: #001f3f !important;
+        }
+        .filter__sort select:focus {
+            border-color: #0043b0 !important;
+        }
+        .filter__option span {
+            color: #001f3f !important;
+        }
+        .filter__option span:hover {
+            color: #0043b0 !important;
+        }
+        /* Footer hover effects */
+        .footer__widget ul li a:hover {
+            color: #0043b0 !important;
+        }
+        .footer__widget__social a,
+        .footer__widget__social a i,
+        .footer__widget__social a:hover,
+        .footer__widget__social a:hover i {
+            color: #ffffff !important;
+        }
+        .footer__widget__social a {
+            background: #001f3f !important;
+            border-color: #001f3f !important;
+        }
+        .footer__widget__social a:hover {
+            background: linear-gradient(135deg, #0043b0, #001f3f) !important;
+            border-color: #001f3f !important;
+        }
+        /* Override any existing color styles */
+        .footer__widget__social a[href*="facebook"],
+        .footer__widget__social a[href*="instagram"],
+        .footer__widget__social a[href*="twitter"],
+        .footer__widget__social a[href*="linkedin"] {
+            color: #ffffff !important;
+        }
+        .footer__widget__social a[href*="facebook"] i,
+        .footer__widget__social a[href*="instagram"] i,
+        .footer__widget__social a[href*="twitter"] i,
+        .footer__widget__social a[href*="linkedin"] i {
+            color: #ffffff !important;
+        }
+        .footer__copyright__text a:hover {
+            color: #0043b0 !important;
+        }
+        .footer__copyright__payment a:hover {
+            color: #0043b0 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,8 +165,8 @@ $name = $query->select('categories', 'category_name', "where id = '$category_id'
                                 <h5><a
                                         onclick="openProductDetails(<?php echo $product_id; ?>)"><?php echo $product_name; ?></a>
                                 </h5>
-                                <div class="product__item__price">$<?php echo $price_current; ?>
-                                    <span>$<?php echo $price_old; ?></span>
+                                <div class="product__item__price">EGP <?php echo $price_current; ?>
+                                    <span>EGP <?php echo $price_old; ?></span>
                                 </div>
                             </div>
                         </div>
@@ -97,6 +180,7 @@ $name = $query->select('categories', 'category_name', "where id = '$category_id'
 
     <!-- Footer Section Begin -->
     <?php include './includes/footer.php'; ?>
+    <?php include './includes/nav-buttons.php'; ?>
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->

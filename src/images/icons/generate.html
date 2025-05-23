@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .preview { margin: 20px 0; }
+        .preview img { margin: 10px; border: 1px solid #ccc; }
+        button { 
+            padding: 10px 20px;
+            background: #001f3f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #003366;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generate PWA Icons</h1>
+    <div class="preview" id="preview"></div>
+    <button onclick="generateIcons()">Generate All Icons</button>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const preview = document.getElementById('preview');
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+
+            // Background
+            ctx.fillStyle = '#001f3f';
+            ctx.fillRect(0, 0, size, size);
+
+            // White circle for bag
+            ctx.fillStyle = 'white';
+            const bagSize = size * 0.8;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, bagSize/2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Dollar sign
+            ctx.fillStyle = '#001f3f';
+            const dollarSize = size * 0.4;
+            const dollarX = size/2;
+            const dollarY = size/2;
+
+            // Vertical line
+            ctx.beginPath();
+            ctx.moveTo(dollarX, dollarY - dollarSize/2);
+            ctx.lineTo(dollarX, dollarY + dollarSize/2);
+            ctx.lineWidth = size * 0.08;
+            ctx.stroke();
+
+            // Top curve
+            ctx.beginPath();
+            ctx.arc(dollarX, dollarY - dollarSize/4, dollarSize/4, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Bottom curve
+            ctx.beginPath();
+            ctx.arc(dollarX, dollarY + dollarSize/4, dollarSize/4, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        function generateIcons() {
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                drawIcon(canvas, size);
+                
+                // Convert to PNG and download
+                const link = document.createElement('a');
+                link.download = `icon-${size}x${size}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // Show previews
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            drawIcon(canvas, size);
+            const img = document.createElement('img');
+            img.src = canvas.toDataURL('image/png');
+            img.width = Math.min(size, 100); // Show smaller preview
+            img.height = Math.min(size, 100);
+            img.alt = `${size}x${size}`;
+            preview.appendChild(img);
+        });
+    </script>
+</body>
+</html> 

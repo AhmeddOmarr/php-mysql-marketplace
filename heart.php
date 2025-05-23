@@ -12,7 +12,7 @@ $cartItemsHeart = $query->getWishes($_SESSION['id']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="./favicon.ico">
-    <title>iMarket | Wish List Products</title>
+    <title>Agarly | Wish List Products</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="./src/css/font-awesome.min.css" type="text/css">
@@ -71,7 +71,7 @@ $cartItemsHeart = $query->getWishes($_SESSION['id']);
                                 <thead>
                                     <tr>
                                         <th class="shoping__product">Products</th>
-                                        <th>Price</th>
+                                        <th>Price  <br> (Per Day) </th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -87,8 +87,8 @@ $cartItemsHeart = $query->getWishes($_SESSION['id']);
                                             </td>
 
                                             <td class="shoping__cart__price">
-                                                <del>$<?php echo number_format($item['price_old'], 2); ?></del>
-                                                $<?php echo number_format($item['price_current'], 2); ?>
+                                                <del>EGP <?php echo number_format($item['price_old'], 2); ?></del>
+                                                EGP <?php echo number_format($item['price_current'], 2); ?>
                                             </td>
 
                                             <td class="shoping__cart__item__clo">
@@ -127,6 +127,7 @@ $cartItemsHeart = $query->getWishes($_SESSION['id']);
     </section>
 
     <?php include './includes/footer.php'; ?>
+    <?php include './includes/nav-buttons.php'; ?>
 
     <script src="./src/js/jquery-3.3.1.min.js"></script>
     <script src="./src/js/bootstrap.min.js"></script>

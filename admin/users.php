@@ -8,27 +8,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" href="../favicon.ico">
-    <title>AdminLTE 3 | Users</title>
-    <!-- CSS -->
+    <title>Admin Panel | Users</title>
     <?php include 'includes/css.php'; ?>
+    <style>
+        :root {
+            --primary: #001f3f;
+            --secondary: #0a3d78;
+            --light-navy: #2c5a8a;
+        }
+        .small-box {
+            color: white !important;
+        }
+        .bg-info {
+            background-color: var(--primary) !important;
+        }
+        .bg-success {
+            background-color: var(--secondary) !important;
+        }
+        .bg-warning {
+            background-color: var(--light-navy) !important;
+        }
+        .bg-danger {
+            background-color: #1a4b8c !important;
+        }
+        .card {
+            border-top: 3px solid var(--primary);
+        }
+    </style>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" style="background-color: white;">
     <div class="wrapper">
 
-        <!-- Navbar -->
         <?php include 'includes/navbar.php'; ?>
 
-        <!-- Main Sidebar Container -->
         <?php
         include 'includes/aside.php';
         active('users', 'users');
         ?>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="background-color: white;">
 
-            <!-- Content Header (Page header) -->
             <?php
             $arr = array(
                 ["title" => "Home", "url" => "/"],
@@ -50,7 +70,6 @@
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
-
                                 </div>
                                 <a href="./sellers.php" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
@@ -65,7 +84,6 @@
                                     <p>Users</p>
                                 </div>
                                 <div class="icon">
-
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
                                 <a href="./users.php" class="small-box-footer">More info <i
@@ -80,7 +98,6 @@
                                     </h3>
                                     <p>Product types</p>
                                 </div>
-
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
@@ -95,7 +112,6 @@
                                     <h3><?php print_r($query->executeQuery('SELECT * FROM products')->num_rows) ?>
                                     </h3>
                                     <p>Number of products</p>
-
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
@@ -111,7 +127,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header" style="background-color: #f8f9fa;">
                                 <h3 class="card-title">Users List</h3>
                             </div>
                             <!-- /.card-header -->
@@ -167,8 +183,13 @@
             </section>
         </div>
 
-        <!-- Main Footer -->
-        <?php include 'includes/footer.php'; ?>
+        <!-- Main Footer - Copyright removed -->
+        <footer class="main-footer" style="background-color: var(--primary); color: white;">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Admin Panel</strong>
+        </footer>
     </div>
 
     <!-- SCRIPTS -->

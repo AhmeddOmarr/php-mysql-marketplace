@@ -7,9 +7,6 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="./" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a onclick="logout()" class="nav-link">Logout</a>
-        </li>
     </ul>
 
     <!-- SEARCH FORM -->
@@ -26,22 +23,18 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-            <a class="nav-link" href="/">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
-            </a>
-        </li>
-        
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" href="/">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
-            </a>
-        </li>
         <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a>
+            <a href="javascript:void(0)" onclick="logout()" class="nav-link" title="Logout">
+                <img src="/php-mysql-marketplace-main/src/images/icons8-logout-30.png" alt="Logout" style="width: 25px; height: 25px;">
+            </a>
         </li>
     </ul>
 </nav>
+
+<script>
+function logout() {
+    if(confirm('Are you sure you want to logout?')) {
+        window.location.href = 'logout.php';
+    }
+}
+</script>

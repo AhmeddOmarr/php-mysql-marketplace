@@ -1,18 +1,15 @@
 <?php function active($Page, $Menu)
 { ?>
 
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="./" class="brand-link">
-            <img src="../src/images/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #000033;">
+        <a href="./" class="brand-link" style="background-color: #000033;">
+            <img src="../src/images/AdminLTELogo.png" alt="Logo" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light"></span>
         </a>
 
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: #000033;">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="../src/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
                 <div class="info">
                     <a href="#" class="d-block"><?php echo $_SESSION['name']; ?></a>
                 </div>
@@ -33,15 +30,13 @@
                             <li class="nav-item">
                                 <a href="./" class="nav-link <?php echo ($Menu === 'sellers') ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Seller</p>
+                                    <p>Sellers</p>
                                 </a>
                             </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="users.php" class="nav-link <?php echo ($Menu === 'users') ? 'active' : ''; ?>">
+                                <a href="users.php" class="nav-link <?php echo ($Menu === 'listers') ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Users</p>
+                                    <p>Listers</p>
                                 </a>
                             </li>
                         </ul>
